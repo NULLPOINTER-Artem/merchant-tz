@@ -1,0 +1,20 @@
+//* Fonts *//
+@import "./fonts.scss";
+
+//* NPM CSS styles *//
+@import "./../../node_modules/normalize.css/normalize"; //! import CSS files without .css !!!
+
+//* Foundation modules *//
+@import "./foundation/main.scss";
+
+//* Reset modules *//
+@import "./reset/main.scss";
+
+//* Layout modules *//
+@import "./layout/main.scss";
+
+//* Views modules *//
+@import "./views/main.scss";
+
+//* Components *//
+@import "./components/main.scss";

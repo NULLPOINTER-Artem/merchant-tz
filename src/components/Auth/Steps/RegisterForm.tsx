@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 /* Types */
-import { StepAuth } from "./types";
+import { StepAuth } from "../types";
 
 /* MUI Icons */
 import Visibility from "@mui/icons-material/VisibilityOutlined";

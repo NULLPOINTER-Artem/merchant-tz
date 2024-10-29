@@ -21,3 +21,9 @@ export type StepItem = {
 };
 
 export type StepDirection = "back" | "next";
+
+export enum Responses {
+  NONE = "NONE",
+  SHOPIFY = "SHOPIFY",
+  EMAIL = "EMAIL",
+}

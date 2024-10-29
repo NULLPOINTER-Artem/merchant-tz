@@ -2,18 +2,21 @@ import { useState } from "react";
 
 /* Components */
 import SvgIconCustom from "./../components/SvgIconCustom";
-import RegisterForm from "../components/Auth/RegisterForm";
+import RegisterForm from "../components/Auth/Steps/RegisterForm";
 import AuthStepper from "../components/Auth/AuthStepper";
+import SuccessResponse from "../components/Auth/Steps/SuccessResponse";
 
 /* Types */
 import {
+  Responses,
   StepAuth,
   StepDirection,
   StepItem,
   StepStatus,
 } from "../components/Auth/types";
 import AdviceSlider from "../components/Auth/AdviceSlider";
-import ConnectStore from "../components/Auth/ConnectStore";
+import ConnectStore from "../components/Auth/Steps/ConnectStore";
+import ConnectEmail from "../components/Auth/Steps/ConnectEmail";
 
 function Auth() {
   const [steps, setSteps] = useState<StepItem[]>([
@@ -107,6 +110,57 @@ function Auth() {
     setCurrentStepAuth(nextStepItem);
   };
 
+  const [hasMessage, setHasMessage] = useState<boolean>(false);
+  const setupMessage = (val: boolean) => {
+    setHasMessage(val);
+  };
+
+  const [successResponse, setSuccessResponse] = useState<Responses>(
+    Responses.NONE
+  );
+  const setupResponse = (val: Responses) => {
+    setSuccessResponse(val);
+  };
+
+  const outputResponse = () => {
+    return (
+      <>
+        {successResponse === Responses.SHOPIFY ? (
+          <SuccessResponse
+            heading="Response received"
+            desc="Thank you for your interest in Chad! We’ll be hard at work building integrations to support your platform."
+          />
+        ) : successResponse === Responses.EMAIL ? (
+          <SuccessResponse
+            heading="Response received"
+            desc="Thank you for your interest in Chad! We’ll be hard at work building integrations to support your email client."
+          />
+        ) : null}
+      </>
+    );
+  };
+  const outputCurrentStep = () => {
+    return (
+      <>
+        {currentStepAuth.step === StepAuth.REGISTER ? (
+          <RegisterForm handleComplete={handleComplete} />
+        ) : currentStepAuth.step === StepAuth.CONNECT_STORE ? (
+          <ConnectStore
+            handleComplete={handleComplete}
+            setupMessage={setupMessage}
+            hasMessage={hasMessage}
+            setupResponse={setupResponse}
+          />
+        ) : currentStepAuth.step === StepAuth.CONNECT_SUPPORT_EMAIL ? (
+          <ConnectEmail
+            handleComplete={handleComplete}
+            setupResponse={setupResponse}
+          />
+        ) : null}
+      </>
+    );
+  };
+
   return (
     <div className="register-page">
       <div className="register-page__progress">
@@ -121,19 +175,19 @@ function Auth() {
       </div>
 
       <div className="register-page__form">
-        <h1 className="register-page__form-heading">
-          <SvgIconCustom
-            classStyles="register-page__form-logo"
-            nameIcon="logoIcon"
-          />
-          <span>Chad</span>
-        </h1>
-
-        {currentStepAuth.step === StepAuth.REGISTER ? (
-          <RegisterForm handleComplete={handleComplete} />
-        ) : (
-          <ConnectStore handleComplete={handleComplete} />
+        {!hasMessage && successResponse === Responses.NONE && (
+          <h1 className="register-page__form-heading">
+            <SvgIconCustom
+              classStyles="register-page__form-logo"
+              nameIcon="logoIcon"
+            />
+            <span>Chad</span>
+          </h1>
         )}
+
+        {successResponse !== Responses.NONE
+          ? outputResponse()
+          : outputCurrentStep()}
       </div>
     </div>
   );

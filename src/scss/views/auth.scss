@@ -1,0 +1,57 @@
+.register-page {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-image: url('../../assets/images/bg-auth.jpg');
+
+    .register-page__progress {
+        width: 100%;
+        max-width: 568px;
+        height: 100vh;
+        position: relative;
+
+        background: linear-gradient(339.02deg, #0D3251 0%, #19476C 103.05%);
+
+        .register-page__stepper {
+            margin: 200px 102px 0 102px;
+        }
+
+        .register-page__advice-list {
+            position: absolute;
+            bottom: 56px;
+            left: 50%;
+            transform: translate(-50%);
+        }
+    }
+
+    .register-page__form {
+        margin-left: calc(196rem / 10);
+
+        background-color: var(--color-white);
+        box-shadow: 0px 5px 20px 0px #6C758B33;
+        border-radius: 8px;
+        padding: 64px 40px;
+
+        width: 100%;
+        max-width: 480px;
+
+        .register-page__form-heading {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: #20496C;
+
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 700;
+
+            margin-bottom: 24px;
+
+            .register-page__form-logo {
+                margin-right: 2px;
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+}

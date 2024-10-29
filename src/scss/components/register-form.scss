@@ -1,0 +1,61 @@
+.register-form {
+    .register-form__heading {
+        margin-bottom: 16px;
+    }
+
+    .register-form__desc {
+        line-height: 21px;
+        font-size: 14px;
+        margin-bottom: 32px;
+    }
+
+    .register-form__wrapper {
+        .register-form__block {
+            margin-bottom: 24px;
+
+            &:last-child {
+                margin-bottom: 32px;
+            }
+
+            .register-form__input-label {
+                margin-bottom: 8px;
+                display: block;
+            }
+
+            .register-form__input {
+                width: 100%;
+
+                .MuiInputAdornment-root {
+                    position: absolute;
+                    right: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+
+            .register-form__message {
+                color: red;
+                font-weight: 500;
+                margin-top: 8px;
+                font-size: 14px;
+            }
+        }
+
+        .register-form__btn {
+            width: 100%;
+            margin-bottom: 16px;
+            border: none;
+
+            .register-form__btn-loader {
+                margin-left: 8px;
+                color: var(--btn-background);
+            }
+        }
+
+        .register-form__addition {
+            font-size: 12px;
+            line-height: 18px;
+            text-align: center;
+        }
+    }
+}

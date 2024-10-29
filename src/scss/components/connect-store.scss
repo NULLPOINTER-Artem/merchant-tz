@@ -1,0 +1,75 @@
+.connect-store {
+    .connect-store__heading {
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .connect-store__desc {
+        font-size: 14px;
+        line-height: 21px;
+        margin-bottom: 32px;
+    }
+
+    .connect-store__ability-list {
+        .connect-store__ability-item {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 338px;
+
+            &:last-child {
+                margin-bottom: 32px;
+            }
+        }
+
+        .connect-store__ability-icon {
+            margin-right: 8px;
+            width: 16px;
+            min-width: 16px;
+            height: 16px;
+            color: #65bd47;
+        }
+
+        .connect-store__ability-wrapper {}
+
+        .connect-store__ability-heading {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 14px;
+            line-height: 21px;
+        }
+
+        .connect-store__ability-desc {
+            line-height: 18px;
+            font-size: 12px;
+        }
+    }
+
+    .connect-store__btn-connect,
+    .connect-store__btn-cancel {
+        display: block;
+        width: 100%;
+        border: none;
+    }
+
+    .connect-store__btn-connect {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 21px;
+
+        .connect-store__btn-loader {
+            margin-left: 8px;
+            color: var(--btn-background);
+        }
+    }
+
+    .connect-store__btn-cancel {
+        margin-top: 8px;
+        background-color: transparent;
+        color: #4F637D;
+        font-size: 12px;
+        line-height: 18px;
+    }
+}

@@ -29,6 +29,9 @@ h1,
 h2,
 .h2 {
   font-size: var(--headings-sizes-h2);
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02rem;
 }
 
 h3,
@@ -56,6 +59,8 @@ p {
 }
 
 a {
+  color: var(--color-blue);
+  font-family: 400;
   text-decoration: none;
 
   &:focus {

@@ -1,13 +1,16 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Auth from "./pages/Auth";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <div>
-      <h1 className='chad-h'>Chad</h1>
-      <h3 className='text'>Connect your Shopify store</h3>
-      <Button variant='contained'>Hello World!</Button>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Auth />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 

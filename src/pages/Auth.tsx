@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* Components */
 import SvgIconCustom from "./../components/SvgIconCustom";
@@ -13,12 +14,31 @@ import {
   StepDirection,
   StepItem,
   StepStatus,
+  UserData,
 } from "../components/Auth/types";
 import AdviceSlider from "../components/Auth/AdviceSlider";
 import ConnectStore from "../components/Auth/Steps/ConnectStore";
 import ConnectEmail from "../components/Auth/Steps/ConnectEmail";
+import { MobileStepperCustom } from "../components/Auth/MobileStepperCustom";
 
 function Auth() {
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState<UserData>({
+    email: "",
+    emailConnected: false,
+    password: "",
+    name: "",
+    storeConnected: true,
+    isAccountCreated: false,
+  });
+
+  const resetStoreConnection = () => {
+    setUserData((prevData) => ({
+      ...prevData,
+      storeConnected: false,
+    }));
+  };
+
   const [steps, setSteps] = useState<StepItem[]>([
     {
       id: 1,
@@ -47,8 +67,44 @@ function Auth() {
   ]);
   const [currentStepAuth, setCurrentStepAuth] = useState<StepItem>(steps[0]);
 
-  const handleComplete = (step: StepAuth) => {
-    if (step === StepAuth.DONE) return;
+  useEffect(() => {
+    if (userData.storeConnected) {
+      setSteps(
+        steps.map((item) => ({
+          ...item,
+          status: item.id === 2 ? StepStatus.NO_PASSED_COMPLETED : item.status,
+        }))
+      );
+    }
+  }, []);
+
+  const setStepStatus = (
+    stepItem: StepItem,
+    currentStepIndex: number,
+    step: StepAuth
+  ) => {
+    if (stepItem.status === StepStatus.NO_PASSED_COMPLETED) {
+      return StepStatus.ACTIVE_COMPLETED;
+    }
+
+    return stepItem.status === StepStatus.COMPLETED || stepItem.step === step
+      ? StepStatus.COMPLETED
+      : stepItem.id === steps[currentStepIndex + 1].id
+      ? StepStatus.ACTIVE
+      : stepItem.id === steps[currentStepIndex + 1].id &&
+        stepItem.status === StepStatus.ACTIVE
+      ? StepStatus.ACTIVE_COMPLETED
+      : stepItem.status;
+  };
+
+  const handleComplete = (
+    step: StepAuth,
+    data: null | UserData | Omit<UserData, "email" | "name" | "password"> = null
+  ) => {
+    if (step === StepAuth.CONNECT_SUPPORT_EMAIL) {
+      navigate("/hello-page");
+      return;
+    }
 
     const currentStepIndex = steps.findIndex((item) => item.step === step);
     if (currentStepIndex < 0) return;
@@ -56,18 +112,17 @@ function Auth() {
     setSteps(
       steps.map((stepItem) => ({
         ...stepItem,
-        status:
-          stepItem.status === StepStatus.COMPLETED || stepItem.step === step
-            ? StepStatus.COMPLETED
-            : stepItem.step === steps[currentStepIndex + 1].step
-            ? StepStatus.ACTIVE
-            : stepItem.step === steps[currentStepIndex + 1].step &&
-              stepItem.status === StepStatus.ACTIVE
-            ? StepStatus.ACTIVE_COMPLETED
-            : StepStatus.NO_PASSED,
+        status: setStepStatus(stepItem, currentStepIndex, step),
       }))
     );
     setCurrentStepAuth(steps[currentStepIndex + 1]);
+
+    if (data !== null) {
+      setUserData((prevData) => ({
+        ...prevData,
+        ...data,
+      }));
+    }
   };
 
   const handleSwitchStep = (direction: StepDirection) => {
@@ -97,7 +152,7 @@ function Auth() {
       steps.map((stepItem) => ({
         ...stepItem,
         status:
-          stepItem.status === nextStepItem.status &&
+          stepItem.id === nextStepItem.id &&
           stepItem.status === StepStatus.COMPLETED
             ? StepStatus.ACTIVE_COMPLETED
             : stepItem.id === theCurrStepItem.id &&
@@ -143,18 +198,21 @@ function Auth() {
     return (
       <>
         {currentStepAuth.step === StepAuth.REGISTER ? (
-          <RegisterForm handleComplete={handleComplete} />
+          <RegisterForm userData={userData} handleComplete={handleComplete} />
         ) : currentStepAuth.step === StepAuth.CONNECT_STORE ? (
           <ConnectStore
             handleComplete={handleComplete}
             setupMessage={setupMessage}
             hasMessage={hasMessage}
             setupResponse={setupResponse}
+            userData={userData}
+            resetStoreConnection={resetStoreConnection}
           />
         ) : currentStepAuth.step === StepAuth.CONNECT_SUPPORT_EMAIL ? (
           <ConnectEmail
             handleComplete={handleComplete}
             setupResponse={setupResponse}
+            userData={userData}
           />
         ) : null}
       </>
@@ -176,13 +234,21 @@ function Auth() {
 
       <div className="register-page__form">
         {!hasMessage && successResponse === Responses.NONE && (
-          <h1 className="register-page__form-heading">
-            <SvgIconCustom
-              classStyles="register-page__form-logo"
-              nameIcon="logoIcon"
+          <>
+            <h1 className="register-page__form-heading">
+              <SvgIconCustom
+                classStyles="register-page__form-logo"
+                nameIcon="logoIcon"
+              />
+              <span>Chad</span>
+            </h1>
+            <MobileStepperCustom
+              activeStep={currentStepAuth.id}
+              steps={steps}
+              currentStep={currentStepAuth}
+              handleSwitchStep={handleSwitchStep}
             />
-            <span>Chad</span>
-          </h1>
+          </>
         )}
 
         {successResponse !== Responses.NONE

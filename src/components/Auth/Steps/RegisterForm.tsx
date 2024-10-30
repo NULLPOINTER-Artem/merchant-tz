@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 /* Types */
-import { StepAuth } from "../types";
+import { StepAuth, UserData } from "../types";
 
 /* MUI Icons */
 import Visibility from "@mui/icons-material/VisibilityOutlined";
@@ -22,7 +22,11 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>;
 
 interface RegisterFormProps {
-  handleComplete: (step: StepAuth) => void;
+  handleComplete: (
+    step: StepAuth,
+    data: Omit<UserData, "storeConnected" | "emailConnected">
+  ) => void;
+  userData: UserData;
 }
 
 export default function RegisterForm(props: RegisterFormProps) {
@@ -33,9 +37,9 @@ export default function RegisterForm(props: RegisterFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<FormFields>({
     defaultValues: {
-      email: "",
-      name: "",
-      password: "",
+      email: props.userData.email ?? "",
+      name: props.userData.name ?? "",
+      password: props.userData.password ?? "",
     },
     resolver: zodResolver(schema), // to validate form fields by schema
   });
@@ -49,7 +53,10 @@ export default function RegisterForm(props: RegisterFormProps) {
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      props.handleComplete(StepAuth.REGISTER);
+      props.handleComplete(StepAuth.REGISTER, {
+        ...data,
+        isAccountCreated: true,
+      });
       reset();
     } catch (error) {
       console.error(error);
@@ -80,6 +87,7 @@ export default function RegisterForm(props: RegisterFormProps) {
               type="email"
               variant="standard"
               placeholder="megachad@trychad.com"
+              disabled={props.userData.isAccountCreated}
               {...register("email")}
             />
 
@@ -100,6 +108,7 @@ export default function RegisterForm(props: RegisterFormProps) {
               type="text"
               variant="standard"
               placeholder="Mega Chad"
+              disabled={props.userData.isAccountCreated}
               {...register("name")}
             />
 
@@ -129,6 +138,7 @@ export default function RegisterForm(props: RegisterFormProps) {
                   </InputAdornment>
                 ),
               }}
+              disabled={props.userData.isAccountCreated}
               {...register("password")}
             />
 
@@ -145,7 +155,7 @@ export default function RegisterForm(props: RegisterFormProps) {
           type="submit"
           variant="contained"
           color="primary"
-          disabled={isSubmitting}
+          disabled={isSubmitting || props.userData.isAccountCreated}
         >
           Create account
           {isSubmitting && (

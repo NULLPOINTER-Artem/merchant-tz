@@ -1,0 +1,35 @@
+.hello-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+
+    padding: 32px;
+}
+
+.background {
+    background: linear-gradient(270deg, #007494, #ffff);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

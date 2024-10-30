@@ -1,0 +1,81 @@
+.without-shopify {
+    .without-shopify__heading {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 24px;
+        letter-spacing: -0.02rem;
+        margin-bottom: 12px;
+    }
+
+    .without-shopify__desc {
+        font-size: 14px;
+        line-height: 21px;
+        margin: 0 -0.03rem 36px;
+    }
+
+    .without-shopify__wrapper {
+        .without-shopify__block {
+            margin-bottom: 36px;
+
+            .without-shopify__select-label {
+                margin-bottom: 8px;
+                display: block;
+            }
+
+            .without-shopify__select {
+                width: 100%;
+                position: relative;
+
+                &.is-open {
+                    .without-shopify__select-icon {
+                        transform: translateY(-50%) rotate(90deg);
+                    }
+                }
+
+                &.has-placeholder {
+                    .MuiSelect-select {
+                        font-family: var(--base-font-family);
+                        color: var(--placeholder-color);
+                        line-height: 24px;
+                        font-size: 16px;
+                        font-weight: 400;
+                        opacity: unset;
+                    }
+                }
+
+                .without-shopify__select-icon {
+                    width: 16px;
+                    height: 16px;
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%) rotate(-90deg);
+                    transition: transform 0.1s;
+                }
+            }
+        }
+
+        .without-shopify__btn-submit {
+            width: 100%;
+            margin-bottom: 20px;
+            border: none;
+
+            .without-shopify__btn-loader {
+                margin-left: 8px;
+                color: var(--btn-background);
+            }
+        }
+
+        .without-shopify__addition {
+            font-size: 12px;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        .without-shopify__back-btn {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import SvgIconCustom from "../../../SvgIconCustom";
-import { Responses, StepAuth } from "../../types";
+import { Responses, StepAuth, UserData } from "../../types";
 
 import StoreConnected from "./StoreConnected";
 import WithoutShopify from "./WithoutShopify";
@@ -13,10 +13,15 @@ type AbilityList = {
 };
 
 interface ConnectStoreProps {
-  handleComplete: (step: StepAuth) => void;
+  handleComplete: (
+    step: StepAuth,
+    data: Omit<UserData, "email" | "name" | "password">
+  ) => void;
   setupMessage: (val: boolean) => void;
   hasMessage?: boolean;
+  userData: UserData;
   setupResponse: (val: Responses) => void;
+  resetStoreConnection: () => void;
 }
 
 export default function ConnectStore(props: ConnectStoreProps) {
@@ -47,6 +52,7 @@ export default function ConnectStore(props: ConnectStoreProps) {
   };
 
   const backToSetupStore = () => {
+    props.resetStoreConnection();
     props.setupMessage(false);
   };
 
@@ -65,11 +71,12 @@ export default function ConnectStore(props: ConnectStoreProps) {
             submit={props.setupResponse}
           />
         </>
-      ) : props.hasMessage ? (
+      ) : props.hasMessage || props.userData.storeConnected ? (
         <>
           <StoreConnected
-            isConnected={true}
+            isConnected={!!props.userData.storeConnected}
             onBack={backToSetupStore}
+            setupMessage={props.setupMessage}
             handleComplete={props.handleComplete}
           />
         </>
@@ -101,7 +108,7 @@ export default function ConnectStore(props: ConnectStoreProps) {
             className="connect-store__btn-connect"
             variant="contained"
             color="primary"
-            disabled={isSubmitting}
+            disabled={isSubmitting || props.userData.storeConnected}
             onClick={connectStore}
           >
             Connect store
@@ -116,6 +123,7 @@ export default function ConnectStore(props: ConnectStoreProps) {
           <button
             type="button"
             className="connect-store__btn-cancel"
+            disabled={isSubmitting || props.userData.storeConnected}
             onClick={() => showSelectPlatform(true)}
           >
             I don’t use Shopify

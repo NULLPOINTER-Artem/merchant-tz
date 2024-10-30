@@ -1,7 +1,9 @@
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, InputBase } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import classNames from "classnames";
 import { SyntheticEvent, useState } from "react";
+import SvgIconCustom from "../../../SvgIconCustom";
 import { Responses } from "../../types";
 
 const platformList: string[] = [
@@ -15,6 +17,15 @@ const platformList: string[] = [
   "eBay",
 ];
 
+function ChevronIcon() {
+  return (
+    <SvgIconCustom
+      classStyles="without-shopify__select-icon"
+      nameIcon="chevron"
+    />
+  );
+}
+
 interface WithoutShopifyProps {
   onBack: () => void;
   submit: (val: Responses) => void;
@@ -24,18 +35,21 @@ export default function WithoutShopify({
   onBack,
   submit,
 }: WithoutShopifyProps) {
-  const [selectedPlatform, setSelectedPlatform] = useState<string>("");
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("none");
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
 
   const selectPlatform = (event: SelectChangeEvent) => {
+    if (!event.target.value) return;
     setSelectedPlatform(event.target.value);
+    setShowPlaceholder(false);
   };
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const onSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
-    
+
     try {
-      if (!selectedPlatform) return;
+      if (!selectedPlatform || selectedPlatform === "none") return;
 
       setIsSubmitting(true);
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -46,31 +60,52 @@ export default function WithoutShopify({
     }
   };
 
+  const [isOpenSelect, setIsOpenSelect] = useState(false);
+  const onOpen = () => {
+    setIsOpenSelect(true);
+  };
+  const onClose = () => {
+    setIsOpenSelect(false);
+  };
+
   return (
-    <form className="store-platform-form" onSubmit={onSubmit}>
-      <h2 className="register-form__heading">Don’t use Shopify?</h2>
-      <p className="register-form__desc">
+    <form className="without-shopify" onSubmit={onSubmit}>
+      <h2 className="without-shopify__heading">Don’t use Shopify?</h2>
+      <p className="without-shopify__desc">
         Chad Beta is currently only available on Shopify. We’ll send you an
         email when Chad becomes available on your platform.
       </p>
 
-      <div>
-        <div className="register-form__block">
+      <div className="without-shopify__wrapper">
+        <div className="without-shopify__block">
           <label
-            className="register-form__input-label"
+            className="without-shopify__select-label"
             htmlFor="store-platform"
           >
             Platform
           </label>
           <Select
+            className={classNames("without-shopify__select", {
+              "has-placeholder": showPlaceholder,
+              "is-open": isOpenSelect,
+            })}
             id="store-platform"
             value={selectedPlatform}
+            IconComponent={ChevronIcon}
             onChange={selectPlatform}
-            placeholder="Select platform"
+            onOpen={onOpen}
+            onClose={onClose}
           >
-            <MenuItem value="">
-              <em>None</em>
+            <MenuItem
+              value="none"
+              disabled
+              className={classNames("without-shopify__select-placeholder", {
+                "is-hidden": !showPlaceholder,
+              })}
+            >
+              Select platform
             </MenuItem>
+
             {platformList.map((platformItem) => (
               <MenuItem value={platformItem} key={platformItem}>
                 {platformItem}
@@ -81,22 +116,25 @@ export default function WithoutShopify({
 
         <Button
           type="submit"
-          className="connect-store__btn-connect"
+          className="without-shopify__btn-submit"
           variant="contained"
           color="primary"
           disabled={isSubmitting}
         >
           Submit
           {isSubmitting && (
-            <CircularProgress className="connect-store__btn-loader" size={15} />
+            <CircularProgress
+              className="without-shopify__btn-loader"
+              size={15}
+            />
           )}
         </Button>
 
-        <div className="register-form__addition">
+        <div className="without-shopify__addition">
           <span>
             Actually use Shopify?{" "}
             <button
-              className="link-reset connected-store__back-btn"
+              className="link-reset without-shopify__back-btn"
               type="button"
               onClick={onBack}
             >

@@ -1,21 +1,36 @@
 import { Button } from "@mui/material";
 import classNames from "classnames";
-import { StepAuth } from "../../types";
+import { useEffect } from "react";
+import { StepAuth, UserData } from "../../types";
 
 interface StoreConnectedProps {
   isConnected: boolean;
   onBack: () => void;
-  handleComplete: (step: StepAuth) => void;
+  setupMessage: (val: boolean) => void;
+  handleComplete: (
+    step: StepAuth,
+    data: Omit<UserData, "email" | "name" | "password">
+  ) => void;
 }
 
 export default function StoreConnected({
   isConnected,
   onBack,
   handleComplete,
+  setupMessage,
 }: StoreConnectedProps) {
   const onContinue = () => {
-    handleComplete(StepAuth.CONNECT_STORE);
+    handleComplete(StepAuth.CONNECT_STORE, {
+      storeConnected: true,
+    });
+    setupMessage(false);
   };
+
+  useEffect(() => {
+    if (isConnected) {
+      setupMessage(true);
+    }
+  }, []);
 
   return (
     <div className="connected-store">

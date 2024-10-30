@@ -27,3 +27,12 @@ export enum Responses {
   SHOPIFY = "SHOPIFY",
   EMAIL = "EMAIL",
 }
+
+export type UserData = {
+  email: string;
+  name: string;
+  password: string;
+  isAccountCreated?: boolean;
+  storeConnected?: boolean;
+  emailConnected?: boolean;
+};

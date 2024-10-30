@@ -1,0 +1,34 @@
+.success-response {
+    max-width: 347px;
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 64px;
+
+    .success-response__icon {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .success-response__heading {
+        text-align: center;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 20px;
+        margin-bottom: 8px;
+    }
+
+    .success-response__desc {
+        text-align: center;
+        letter-spacing: -0.03rem;
+        line-height: 21px;
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    .connected-store__btn-continue {
+        display: block;
+        max-width: 310px;
+        width: 100%;
+        margin: 0 auto;
+    }
+}

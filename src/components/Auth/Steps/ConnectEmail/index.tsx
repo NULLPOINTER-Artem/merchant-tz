@@ -1,7 +1,7 @@
 import { Button, CircularProgress, Step } from "@mui/material";
 import { useState } from "react";
 import SvgIconCustom from "../../../SvgIconCustom";
-import { Responses, StepAuth } from "../../types";
+import { Responses, StepAuth, UserData } from "../../types";
 
 import WithoutEmail from "./WithoutEmail";
 
@@ -12,8 +12,12 @@ type AbilityList = {
 };
 
 interface ConnectEmailProps {
-  handleComplete: (step: StepAuth) => void;
+  handleComplete: (
+    step: StepAuth,
+    data: Omit<UserData, "email" | "name" | "password">
+  ) => void;
   setupResponse: (val: Responses) => void;
+  userData: UserData;
 }
 
 export default function ConnectEmail(props: ConnectEmailProps) {
@@ -39,7 +43,9 @@ export default function ConnectEmail(props: ConnectEmailProps) {
   const connectEmail = async () => {
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    props.handleComplete(StepAuth.CONNECT_SUPPORT_EMAIL);
+    props.handleComplete(StepAuth.CONNECT_SUPPORT_EMAIL, {
+      emailConnected: true,
+    });
     setIsSubmitting(false);
   };
 
@@ -83,13 +89,12 @@ export default function ConnectEmail(props: ConnectEmailProps) {
             ))}
           </div>
 
-          {/* TODO: GOOGLE BTN */}
           <Button
             type="button"
             className="connect-email__btn-connect"
             variant="contained"
             color="primary"
-            disabled={isSubmitting}
+            disabled={isSubmitting || props.userData.emailConnected}
             onClick={connectEmail}
           >
             <div className="connect-email__btn-connect__icon">
@@ -107,6 +112,7 @@ export default function ConnectEmail(props: ConnectEmailProps) {
           <button
             type="button"
             className="connect-email__btn-cancel"
+            disabled={isSubmitting || props.userData.emailConnected}
             onClick={() => showSelectPlatform(true)}
           >
             I don’t use Gmail

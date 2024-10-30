@@ -1,0 +1,29 @@
+.mobile-stepper {}
+
+.mobile-stepper__count-block {
+    line-height: 18px;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.MuiPaper-root.mobile-stepper__component {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 32px;
+
+    &.is-open {
+        margin-bottom: 0;
+    }
+
+    .MuiLinearProgress-root {
+        width: inherit;
+        height: 8px;
+        border-radius: 4px;
+        background-color: transparent;
+        border: 1px solid #C9D3E0;
+
+        .MuiLinearProgress-bar {
+            background-color: #C9D3E0;
+        }
+    }
+}

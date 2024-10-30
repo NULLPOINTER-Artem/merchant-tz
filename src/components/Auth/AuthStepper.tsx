@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import { useMemo } from "react";
 import SvgIconCustom from "../SvgIconCustom";
+import StepPaginator from "./StepPaginator";
 
 /* Types */
 import { StepStatus, StepItem, StepAuth, StepDirection } from "./types";
@@ -47,16 +47,6 @@ interface AuthStepperProps {
 }
 
 export default function AuthStepper(props: AuthStepperProps) {
-  const hasCompletedStep = useMemo(
-    () =>
-      props.steps.some(
-        (item) =>
-          item.status === StepStatus.COMPLETED ||
-          item.status === StepStatus.ACTIVE_COMPLETED
-      ),
-    [props.currentStep]
-  );
-
   return (
     <div className={classNames("auth-stepper", props.classStyles)}>
       <div className="auth-stepper__list">
@@ -82,37 +72,11 @@ export default function AuthStepper(props: AuthStepperProps) {
         ))}
       </div>
 
-      {hasCompletedStep && (
-        <div className="auth-stepper__pagination">
-          <button
-            type="button"
-            className="auth-stepper__pagination-btn is-back"
-            disabled={props.currentStep.step === StepAuth.REGISTER}
-            onClick={() => props.handleSwitchStep("back")}
-          >
-            <SvgIconCustom
-              nameIcon="chevron"
-              classStyles="auth-stepper__pagination-icon"
-            />
-            <span>Back</span>
-          </button>
-          <button
-            type="button"
-            className="auth-stepper__pagination-btn is-next"
-            disabled={
-              props.currentStep.step === StepAuth.DONE ||
-              props.currentStep.status !== StepStatus.COMPLETED
-            }
-            onClick={() => props.handleSwitchStep("next")}
-          >
-            <span>Next</span>
-            <SvgIconCustom
-              nameIcon="chevron"
-              classStyles="auth-stepper__pagination-icon"
-            />
-          </button>
-        </div>
-      )}
+      <StepPaginator
+        steps={props.steps}
+        currentStep={props.currentStep}
+        handleSwitchStep={props.handleSwitchStep}
+      />
     </div>
   );
 }

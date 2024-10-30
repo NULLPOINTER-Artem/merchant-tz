@@ -1,6 +1,12 @@
 .register-form {
     .register-form__heading {
         margin-bottom: 16px;
+        font-weight: 600;
+
+        @media(max-width: 992px) {
+            margin-bottom: 8px;
+            line-height: 28px;
+        }
     }
 
     .register-form__desc {

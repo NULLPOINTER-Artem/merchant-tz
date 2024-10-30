@@ -1,0 +1,79 @@
+.email-platform-form {
+    .email-platform-form__heading {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 24px;
+        letter-spacing: -0.02rem;
+        margin-bottom: 12px;
+    }
+
+    .email-platform-form__desc {
+        font-size: 14px;
+        line-height: 21px;
+        margin: 0 -0.03rem 36px;
+    }
+
+    .email-platform-form__block {
+        margin-bottom: 36px;
+    }
+
+    .email-platform-form__select-label {
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .email-platform-form__select {
+        width: 100%;
+        position: relative;
+
+        &.is-open {
+            .email-platform-form__select-icon {
+                transform: translateY(-50%) rotate(90deg);
+            }
+        }
+
+        &.has-placeholder {
+            .MuiSelect-select {
+                font-family: var(--base-font-family);
+                color: var(--placeholder-color);
+                line-height: 24px;
+                font-size: 16px;
+                font-weight: 400;
+                opacity: unset;
+            }
+        }
+
+        .email-platform-form__select-icon {
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transition: transform 0.1s;
+        }
+    }
+
+    .email-platform-form__btn-submit {
+        width: 100%;
+        margin-bottom: 20px;
+        border: none;
+
+        .email-platform-form__btn-loader {
+            margin-left: 8px;
+            color: var(--btn-background);
+        }
+    }
+
+    .email-platform-form__addition {
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+    }
+
+    .email-platform-form__back-btn {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
+}

@@ -50,6 +50,79 @@ label {
   font-weight: 500;
 }
 
+.MuiInputBase-root .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
+.MuiPaper-root .MuiList-root {
+  border-radius: 4px;
+}
+
+.MuiList-root .MuiButtonBase-root {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.MuiInputBase-root .MuiSelect-nativeInput {
+  @include placeholder {
+    font-family: var(--base-font-family);
+    color: var(--placeholder-color);
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    opacity: unset;
+  }
+
+  appearance: none;
+  box-sizing: border-box;
+  font-family: var(--form-font-family);
+  border-radius: 4px;
+  border: none;
+  outline: var(--color-white-gray);
+  padding: var(--form-element-padding);
+  line-height: 24px;
+  background-color: var(--color-white-gray);
+  color: var(--color-black);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  height: unset;
+
+  &:focus {
+    border-color: unset;
+  }
+}
+
+.MuiInputBase-root .MuiSelect-select {
+  @include placeholder {
+    font-family: var(--base-font-family);
+    color: var(--placeholder-color);
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    opacity: unset;
+  }
+
+  appearance: none;
+  box-sizing: border-box;
+  font-family: var(--form-font-family);
+  border-radius: 4px;
+  border: none;
+  outline: var(--color-white-gray);
+  padding: var(--form-element-padding);
+  line-height: 24px;
+  background-color: var(--color-white-gray);
+  color: var(--color-black);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  height: unset;
+
+  &:focus {
+    border-color: unset;
+  }
+}
+
 .MuiFormControl-root .MuiInputBase-root {
 
   &::before,

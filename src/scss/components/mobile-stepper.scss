@@ -1,4 +1,10 @@
-.mobile-stepper {}
+.mobile-stepper {
+    display: none;
+
+    @media(max-width: 992px) {
+        display: block;
+    }
+} 
 
 .mobile-stepper__count-block {
     line-height: 18px;

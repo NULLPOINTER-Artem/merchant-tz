@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/merchant-tz/static/css/main.2dab0a13.css",
+    "main.css": "/merchant-tz/static/css/main.c8960d2d.css",
     "main.js": "/merchant-tz/static/js/main.6edc7123.js",
     "static/js/453.72617f40.chunk.js": "/merchant-tz/static/js/453.72617f40.chunk.js",
     "static/media/bg-auth.jpg": "/merchant-tz/static/media/bg-auth.b543151c1822cb0a8147.jpg",
@@ -133,12 +133,12 @@
     "static/media/roboto-greek-ext-300-normal.woff": "/merchant-tz/static/media/roboto-greek-ext-300-normal.b590dbe5c639944366d1.woff",
     "static/media/roboto-greek-ext-400-normal.woff": "/merchant-tz/static/media/roboto-greek-ext-400-normal.16eb83b4a3b1ea994243.woff",
     "index.html": "/merchant-tz/index.html",
-    "main.2dab0a13.css.map": "/merchant-tz/static/css/main.2dab0a13.css.map",
+    "main.c8960d2d.css.map": "/merchant-tz/static/css/main.c8960d2d.css.map",
     "main.6edc7123.js.map": "/merchant-tz/static/js/main.6edc7123.js.map",
     "453.72617f40.chunk.js.map": "/merchant-tz/static/js/453.72617f40.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2dab0a13.css",
+    "static/css/main.c8960d2d.css",
     "static/js/main.6edc7123.js"
   ]
 }
